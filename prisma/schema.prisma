@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+model Usuarios {
+  id           String         @id @default(uuid())
+  cpfCnpj      String         @unique
+  senha        String
+  Contatos     Contatos[]
+  Clientes     Clientes[]
+  Funcionarios Funcionarios[]
+  Enderecos    Enderecos[]
+}
+
+model Funcionarios {
+  id           String         @id @default(uuid())
+  matricula    String         @unique
+  ativo        Status         @default(ACTIVE)
+  usuario      Usuarios       @relation(fields: [usuariosId], references: [id])
+  usuariosId   String
+  Agendamentos Agendamentos[]
+}
+
+model Clientes {
+  id           String         @id @default(uuid())
+  ativo        Status         @default(ACTIVE)
+  usuario      Usuarios       @relation(fields: [usuariosId], references: [id])
+  usuariosId   String
+  Agendamentos Agendamentos[]
+}
+
+model Enderecos {
+  id          String   @id @default(uuid())
+  cep         String
+  logradouro  String
+  complemento String?
+  bairro      String
+  localidade  String
+  uf          String
+  usuario     Usuarios @relation(fields: [usuariosId], references: [id])
+  usuariosId  String
+}
+
+model Contatos {
+  id         String   @id @default(uuid())
+  email      String?
+  telefone   String?
+  usuario    Usuarios @relation(fields: [usuariosId], references: [id])
+  usuariosId String
+}
+
+model Servicos {
+  id           String         @id @default(uuid())
+  nome         String
+  descricao    String
+  ativo        Status         @default(ACTIVE)
+  Agendamentos Agendamentos[]
+}
+
+model Agendamentos {
+  id             String       @id @default(uuid())
+  cliente        Clientes     @relation(fields: [clientesId], references: [id])
+  funcionario    Funcionarios @relation(fields: [funcionariosId], references: [id])
+  servico        Servicos     @relation(fields: [servicosId], references: [id])
+  clientesId     String
+  funcionariosId String
+  dataHora       DateTime
+  servicosId     String
+}
