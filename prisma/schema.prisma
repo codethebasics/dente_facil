@@ -20,30 +20,29 @@ enum Status {
 }
 
 model Usuarios {
-  id           String         @id @default(uuid())
-  cpfCnpj      String         @unique
+  id           String        @id @default(uuid())
+  cpfCnpj      String        @unique
   senha        String
-  Contatos     Contatos[]
-  Clientes     Clientes[]
-  Funcionarios Funcionarios[]
-  Enderecos    Enderecos[]
+  ativo        Status        @default(ACTIVE)
+  Enderecos    Enderecos?
+  Clientes     Clientes?
+  Funcionarios Funcionarios?
+  Contatos     Contatos?
 }
 
 model Funcionarios {
-  id           String         @id @default(uuid())
-  matricula    String         @unique
-  ativo        Status         @default(ACTIVE)
-  usuario      Usuarios       @relation(fields: [usuariosId], references: [id])
-  usuariosId   String
-  Agendamentos Agendamentos[]
+  id           String        @id @default(uuid())
+  matricula    String        @unique
+  usuario      Usuarios      @relation(fields: [usuariosId], references: [id])
+  usuariosId   String        @unique
+  Agendamentos Agendamentos?
 }
 
 model Clientes {
-  id           String         @id @default(uuid())
-  ativo        Status         @default(ACTIVE)
-  usuario      Usuarios       @relation(fields: [usuariosId], references: [id])
-  usuariosId   String
-  Agendamentos Agendamentos[]
+  id           String        @id @default(uuid())
+  usuariosId   String        @unique
+  usuario      Usuarios      @relation(fields: [usuariosId], references: [id])
+  Agendamentos Agendamentos?
 }
 
 model Enderecos {
@@ -55,7 +54,7 @@ model Enderecos {
   localidade  String
   uf          String
   usuario     Usuarios @relation(fields: [usuariosId], references: [id])
-  usuariosId  String
+  usuariosId  String   @unique
 }
 
 model Contatos {
@@ -63,24 +62,24 @@ model Contatos {
   email      String?
   telefone   String?
   usuario    Usuarios @relation(fields: [usuariosId], references: [id])
-  usuariosId String
+  usuariosId String   @unique
 }
 
 model Servicos {
-  id           String         @id @default(uuid())
+  id           String        @id @default(uuid())
   nome         String
   descricao    String
-  ativo        Status         @default(ACTIVE)
-  Agendamentos Agendamentos[]
+  ativo        Status        @default(ACTIVE)
+  Agendamentos Agendamentos?
 }
 
 model Agendamentos {
   id             String       @id @default(uuid())
-  cliente        Clientes     @relation(fields: [clientesId], references: [id])
-  funcionario    Funcionarios @relation(fields: [funcionariosId], references: [id])
-  servico        Servicos     @relation(fields: [servicosId], references: [id])
-  clientesId     String
-  funcionariosId String
   dataHora       DateTime
-  servicosId     String
+  cliente        Clientes     @relation(fields: [clientesId], references: [id])
+  clientesId     String       @unique
+  funcinario     Funcionarios @relation(fields: [funcionariosId], references: [id])
+  funcionariosId String       @unique
+  servico        Servicos     @relation(fields: [servicosId], references: [id])
+  servicosId     String       @unique
 }
