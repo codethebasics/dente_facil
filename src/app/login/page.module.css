@@ -30,13 +30,13 @@
   padding-top: 1rem;
 }
 
-.back {
+.bottomCta {
   padding: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
-.back > span {
+.bottomCta span {
   color: #007d7a;
   font-weight: 500;
 }

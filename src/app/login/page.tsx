@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import Image from 'next/image';
 
-export default function CadastroIndex() {
+export default function LoginIndex() {
   const router = useRouter();
 
   return (
@@ -19,27 +19,24 @@ export default function CadastroIndex() {
       </div>
       <form className={styles.formCadastro}>
         <div className={styles.control}>
-          <label>Nome</label>
-          <input type="text" placeholder="João da Silva" />
-        </div>
-        <div className={styles.control}>
           <label>E-mail</label>
-          <input type="email" placeholder="joao.silva@email.com" />
+          <input type="email" placeholder="seu@email.com" />
         </div>
         <div className={styles.control}>
           <label>Senha</label>
           <input type="password" placeholder="*******" />
         </div>
         <div className={styles.control}>
-          <label>Confirme a senha</label>
-          <input type="password" placeholder="*******" />
-        </div>
-        <div className={styles.control}>
-          <button>Cadastrar</button>
+          <button>Entrar</button>
         </div>
       </form>
-      <div className={styles.back}>
-        <span onClick={() => router.push('login')}>Voltar</span>
+      <div className={styles.bottomCta}>
+        <div>
+          <span onClick={() => router.push('cadastro')}>Cadastrar</span>
+        </div>
+        <div>
+          <span>Esqueci a senha</span>
+        </div>
       </div>
     </div>
   );
