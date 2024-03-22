@@ -144,3 +144,23 @@ footer .version {
 .hidden {
   display: none;
 }
+
+label {
+  color: #007d7a;
+  font-weight: 500;
+}
+
+input {
+  border: 2px solid #007d7a;
+  border-radius: 3px;
+  padding: 1rem;
+}
+
+button {
+  background-color: #007d7a;
+  padding: 1rem;
+  border: 0;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 2rem;
+}

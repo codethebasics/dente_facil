@@ -21,7 +21,8 @@ enum Status {
 
 model Usuarios {
   id           String        @id @default(uuid())
-  cpfCnpj      String        @unique
+  nome         String
+  email        String        @unique
   senha        String
   ativo        Status        @default(ACTIVE)
   Enderecos    Enderecos?

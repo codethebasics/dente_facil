@@ -3,6 +3,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -27,6 +28,12 @@ export default function RootLayout({
 }
 
 function Header({ setMenuOpened }: any) {
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    router.push('/');
+  };
+
   return (
     <header>
       <div>
@@ -36,6 +43,7 @@ function Header({ setMenuOpened }: any) {
             alt="Dente Fácil"
             width={118}
             height={35}
+            onClick={() => handleNavigation()}
           />
         </div>
         <div className="menubar">
@@ -63,6 +71,13 @@ function Footer() {
 }
 
 function OverlayMenu({ menuOpened, setMenuOpened }: any) {
+  const router = useRouter();
+
+  const handleNavigation = (target: string) => {
+    router.push(target);
+    setMenuOpened(false);
+  };
+
   return (
     <div className={`overlay ${menuOpened ? 'visible' : 'hidden'}`}>
       <div className="close">
@@ -70,11 +85,13 @@ function OverlayMenu({ menuOpened, setMenuOpened }: any) {
       </div>
       <div>
         <ul className="menulinks">
-          <li>Clientes</li>
-          <li>Consultas</li>
-          <li>Funcionários</li>
-          <li>Ajuda</li>
-          <li>Sair</li>
+          <li onClick={() => handleNavigation('/')}>Início</li>
+          <li onClick={() => handleNavigation('/clientes')}>Clientes</li>
+          <li onClick={() => handleNavigation('/consultas')}>Consultas</li>
+          <li onClick={() => handleNavigation('/funcionarios')}>
+            Funcionários
+          </li>
+          <li onClick={() => handleNavigation('/sair')}>Sair</li>
         </ul>
       </div>
     </div>
