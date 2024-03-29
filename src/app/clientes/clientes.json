@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "image": "K",
+    "summary": "Karina Ferreira",
+    "email": "karina.ferreira@gmail.com",
+    "phone": "(61) 9 9999 9990"
+  },
+  {
+    "id": 2,
+    "image": "J",
+    "summary": "João Pedro Almeida",
+    "email": "joaopedroalmeida@email.com",
+    "phone": "(61) 9 9999 9991"
+  },
+  {
+    "id": 3,
+    "image": "C",
+    "summary": "Caio Leandro Bretas",
+    "email": "caioleandrobretas@email.com",
+    "phone": "(61) 9 9999 9992"
+  }
+]
