@@ -8,6 +8,11 @@ import { useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
+/**
+ * ----
+ * Root
+ * ----
+ */
 export default function RootLayout({
   children,
 }: {
@@ -19,7 +24,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <Header setMenuOpened={setMenuOpened} />
-        <main>{children}</main>
+        <main>
+          <div>{children}</div>
+        </main>
         <Footer />
         <OverlayMenu menuOpened={menuOpened} setMenuOpened={setMenuOpened} />
       </body>
@@ -27,12 +34,14 @@ export default function RootLayout({
   );
 }
 
+/**
+ * ------
+ * Header
+ * ------
+ */
 function Header({ setMenuOpened }: any) {
   const router = useRouter();
-
-  const handleNavigation = () => {
-    router.push('/');
-  };
+  const handleNavigation = () => router.push('/');
 
   return (
     <header>
@@ -60,6 +69,11 @@ function Header({ setMenuOpened }: any) {
   );
 }
 
+/**
+ * ------
+ * Footer
+ * ------
+ */
 function Footer() {
   return (
     <footer>
@@ -70,6 +84,11 @@ function Footer() {
   );
 }
 
+/**
+ * ------------
+ * Overlay menu
+ * ------------
+ */
 function OverlayMenu({ menuOpened, setMenuOpened }: any) {
   const router = useRouter();
 
@@ -91,7 +110,7 @@ function OverlayMenu({ menuOpened, setMenuOpened }: any) {
           <li onClick={() => handleNavigation('/funcionarios')}>
             Funcionários
           </li>
-          <li onClick={() => handleNavigation('/sair')}>Sair</li>
+          <li onClick={() => handleNavigation('/login')}>Sair</li>
         </ul>
       </div>
     </div>
