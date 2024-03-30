@@ -8,6 +8,31 @@
 
 .searchbarContainer {
   padding: 2rem;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 -15px 50px #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.searchbarContainerInput {
+  flex: 1;
+}
+
+.searchbarContainerInput input {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  border: 2px solid #007d7a;
+  border-radius: 3px;
+}
+
+.searchbarContainerCta {
+  border-radius: 0 3px 3px 0;
+  border-top: none;
+  border-left: 0;
+  color: #007d7a;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 .userListContainer {
@@ -104,4 +129,17 @@
 
 .userCard .userCta > div:hover {
   opacity: 0.8;
+}
+
+.noMatch {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 1.4rem;
+  color: #888888;
+  font-weight: 500;
 }

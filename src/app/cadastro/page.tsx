@@ -38,7 +38,10 @@ export default function CadastroIndex() {
           <button>Cadastrar</button>
         </div>
       </form>
-      <div className={styles.back}>
+      <div
+        className={styles.back}
+        style={{ cursor: 'pointer', userSelect: 'none' }}
+      >
         <span onClick={() => router.push('login')}>Voltar</span>
       </div>
     </div>

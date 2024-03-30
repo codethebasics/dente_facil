@@ -69,10 +69,10 @@ export default function LoginIndex() {
         </div>
       </form>
       <div className={styles.bottomCta}>
-        <div>
+        <div style={{ cursor: 'pointer', userSelect: 'none' }}>
           <span onClick={() => router.push('cadastro')}>Cadastrar</span>
         </div>
-        <div>
+        <div style={{ cursor: 'pointer', userSelect: 'none' }}>
           <span>Esqueci a senha</span>
         </div>
       </div>

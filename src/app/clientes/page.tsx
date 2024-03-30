@@ -13,16 +13,24 @@ import Image from 'next/image';
 export default function ClientesIndex() {
   const [filteredUsers, setFilteredUsers] = useState(users);
 
-  const handleCallback = (e: any) => {
+  const setFilterEventHandler = (e: any) => {
     setFilteredUsers(
       users.filter((user) => user.summary.toLowerCase().match(e))
     );
   };
 
+  const deleteEventCallback = (e: any) => {
+    console.log('Index> deletando da lista', e);
+    setFilteredUsers(filteredUsers.filter((user) => user.id !== e));
+  };
+
   return (
     <div className={styles.container}>
-      <Searchbar setFilterEvent={handleCallback} />
-      <UserList list={filteredUsers} />
+      <Searchbar setFilterEvent={setFilterEventHandler} />
+      <UserList
+        list={filteredUsers}
+        deleteEventCallback={deleteEventCallback}
+      />
       <div className={styles.userListResume}>
         {filteredUsers.length} resultados encontrados
       </div>
@@ -37,44 +45,89 @@ export default function ClientesIndex() {
  */
 function Searchbar({ setFilterEvent }: any) {
   const handleEvent = (e: any) => setFilterEvent(e.target.value);
-
+  const clean = () => {
+    setFilterEvent('');
+    const search: HTMLInputElement | null = document.querySelector('#search');
+    if (search) {
+      search.value = '';
+      search.focus();
+    }
+  };
   return (
     <div className={styles.searchbarContainer}>
-      <input
-        type="text"
-        onKeyUp={handleEvent}
-        placeholder="Digite parte do nome"
-      />
+      <div className={styles.searchbarContainerInput}>
+        <input
+          id={'search'}
+          type="text"
+          onChange={handleEvent}
+          placeholder="Digite parte do nome"
+        />
+      </div>
+      <div className={styles.searchbarContainerCta}>
+        <Image
+          src={'/img/clean.svg'}
+          alt={'Limpar'}
+          width={35}
+          height={35}
+          onClick={clean}
+        />
+      </div>
     </div>
   );
 }
 
-function UserList({ list }: any) {
+/**
+ * --------
+ * UserList
+ * --------
+ */
+function UserList({ list, deleteEventCallback }: any) {
   return (
     <div className={styles.userListContainer}>
-      <ul>
-        {list.map((user: any) => (
-          <li key={user.id}>
-            <UserCard
-              image={user.image}
-              summary={user.summary}
-              email={user.email}
-              phone={user.phone}
-            />
-          </li>
-        ))}
-      </ul>
+      {list.length ? (
+        list.map((user: any) => (
+          <ul key={user.id}>
+            <li>
+              <UserCard
+                id={user.id}
+                image={user.image}
+                summary={user.summary}
+                email={user.email}
+                phone={user.phone}
+                deleteEventCallback={deleteEventCallback}
+              />
+            </li>
+          </ul>
+        ))
+      ) : (
+        <div className={styles.noMatch}>Nenhum resultado encontrado</div>
+      )}
     </div>
   );
 }
 
-function UserCard({ image, summary, email, phone }: any) {
+/**
+ * --------
+ * UserCard
+ * --------
+ */
+function UserCard({
+  id,
+  image,
+  summary,
+  email,
+  phone,
+  deleteEventCallback,
+}: any) {
   const handleEdit = () => {
     confirm('Editar registro?');
+    console.log('editando registro', id);
   };
 
   const handleDelete = () => {
     confirm('Deletar registro?');
+    console.log('deletando registro', id);
+    deleteEventCallback(id);
   };
 
   return (
